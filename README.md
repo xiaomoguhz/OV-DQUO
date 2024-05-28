@@ -7,7 +7,7 @@ This repository is the official implementation of [OV-DQUO](https://arxiv.org/ab
 
 ## TODO
 - [x] Release the Model Code
-- [x] Release the Training and Evaluation Code
+- [ ] Release the Training and Evaluation Code
 - [ ] Updating the RoQIs selection Code
 ## Environment
 ### Requirements
@@ -39,6 +39,7 @@ sh ./make.sh
 ```
 #### Download backbone weights
 Download the __ResNet CLIP__ pretrained region prompt weights for __OV-COCO__ experiments from [CORA](https://drive.google.com/drive/folders/17mi8O1YW6dl8TRkwectHRoC8xbK5sLMw) , and place them in the `pretrained` directory. 
+
 Download the __ViT CLIP__ pretrained weights for __OV-LVIS__ experiments from [ViT-B/16](https://drive.google.com/file/d/1-yfrMVaS4aN5uZSYCTalhJ_Pq3j_2aT4/view) and [ViT-L/14](https://drive.google.com/file/d/1_bQMw-R0tBgvFWAAJFi7RbAHN4-OYIz0/view), and place them in the `pretrained` directory.
 #### Prepare the datasets
 Please download the [COCO dataset](https://cocodataset.org/#download), unzip it, and make sure it is in the following structure:
@@ -54,7 +55,7 @@ Please download the [COCO dataset](https://cocodataset.org/#download), unzip it,
 Please download the [OV-COCO](https://drive.google.com/drive/folders/1Jgkpoz_ILJRI4xRJydi7dQfFjwtAFbef?usp=sharing) and [OV-LVIS](https://cocodataset.org/#download) dataset annotations, and place them in the `{COCO dataset folder}/Annotations`
 #### Prepare the open-world unknwon objects
 <!-- Please download the [open-world pseudo labels](https://drive.google.com/drive/folders/1j-i6BkbsHvD_pNXVZRQ6fmAYOWnF4Ao4?usp=sharing), and place them in the `ow_labels` directory.  -->
-The training code will be released after the review is completed. In the meantime, the [open-world pseudo labels](https://drive.google.com/drive/folders/1j-i6BkbsHvD_pNXVZRQ6fmAYOWnF4Ao4?usp=sharing) used in training are currently available for download.
+Download the [open-world pseudo labels](https://drive.google.com/drive/folders/1j-i6BkbsHvD_pNXVZRQ6fmAYOWnF4Ao4?usp=sharing) and place them in the `ow_labels` folder.
 ## Results & Checkpoints  
 Our model achieves the following performance on :
 ### OV-COCO
@@ -67,19 +68,19 @@ Our model achieves the following performance on :
 ### OV-LVIS
 | Model name    | mAP_rare     | Checkpoint |
 | ------------  | :------------: | ------------ |
-| OVDQUO_ViTB16 | __29.7__ |   |                |
-| OVDQUO_ViTL14 | __39.3__ |   |                 |
+| OVDQUO_ViT-B/16 | __29.7__ |   |                |
+| OVDQUO_ViT-L/14 | __39.3__ |   |                 |
 ## Evaluation
 
 To evaluate my model on OV-COCO, run:
 
 ```eval
-python eval.py --model-file mymodel.pth --benchmark imagenet
+Please wait for further updates
 ```
 To evaluate my model on OV-LVIS, run:
 
 ```eval
-python eval.py --model-file mymodel.pth --benchmark imagenet
+Please wait for further updates
 ```
 ## Citation and Acknowledgement
 
