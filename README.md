@@ -1,16 +1,16 @@
 # OV-DQUO: Open-Vocabulary DETR with Denoising Text Query Training and Open-World Unknown Objects Supervision
-This repository is the official implementation of [OV-DQUO](https://arxiv.org/abs/2030.12345). 
-
+This repository is the official PyTorch implementation of [OV-DQUO](https://arxiv.org/abs/2405.17913). 
 
 
 ![Alt text](docs/method.png)
-
+## Overview
+OV-DQUO is an open-vocabulary detection framework that learns from open-world unknown objects through wildcard matching and contrastive denoising training strategies, mitigating performance degradation in novel category detection caused by confidence bias.
 ## TODO
 - [x] Release the Model Code
 - [ ] Release the Training and Evaluation Code
 - [ ] Updating the RoQIs selection Code
+
 ## Environment
-### Requirements
 - Linux with Python == 3.9.0
 - CUDA 11.7
 - The provided environment is suggested for reproducing our results, similar configurations may also work.
@@ -87,7 +87,15 @@ Please wait for further updates
 ### Citation
 
 If you find this repo useful, please consider citing our paper:
-
+```
+@misc{wang2024ovdquo,
+      title={OV-DQUO: Open-Vocabulary DETR with Denoising Text Query Training and Open-World Unknown Objects Supervision}, 
+      author={Junjie Wang and Bin Chen and Bin Kang and Yulin Li and YiChi Chen and Weizhi Xian and Huifeng Chang},
+      year={2024},
+      eprint={2405.17913},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}}
+```
 ### Acknowledgement
 
-This repository was built on top of [DINO](https://github.com/IDEA-Research/DINO), [CORA](https://github.com/tgxs002/CORA/tree/master), and [CLIPself](https://github.com/wusize/CLIPSelf/). We thank the effort from the community.
+This repository was built on top of [DINO](https://github.com/IDEA-Research/DINO), [CORA](https://github.com/tgxs002/CORA/tree/master), [MEPU](https://github.com/frh23333/mepu-owod), and [CLIPself](https://github.com/wusize/CLIPSelf/). We thank the effort from the community.
