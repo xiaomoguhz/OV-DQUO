@@ -52,7 +52,7 @@ Please download the [COCO dataset](https://cocodataset.org/#download), unzip it,
     train2017
     val2017
 ```
-Please download the [OV-COCO](https://drive.google.com/drive/folders/1Jgkpoz_ILJRI4xRJydi7dQfFjwtAFbef?usp=sharing) and [OV-LVIS](https://cocodataset.org/#download) dataset annotations, and place them in the `{COCO dataset folder}/Annotations`
+Please download the [OV-COCO](https://drive.google.com/drive/folders/1Jgkpoz_ILJRI4xRJydi7dQfFjwtAFbef?usp=sharing) and [OV-LVIS](https://drive.google.com/drive/folders/1ID3TqDzDMm8VBaY-pPS4WRjoio-rePpO?usp=sharing) dataset annotations, and place them in the `{COCO dataset folder}/Annotations`
 #### Prepare the open-world unknwon objects
 <!-- Please download the [open-world pseudo labels](https://drive.google.com/drive/folders/1j-i6BkbsHvD_pNXVZRQ6fmAYOWnF4Ao4?usp=sharing), and place them in the `ow_labels` directory.  -->
 Download the [open-world pseudo labels](https://drive.google.com/drive/folders/1j-i6BkbsHvD_pNXVZRQ6fmAYOWnF4Ao4?usp=sharing) and place them in the `ow_labels` folder.
@@ -68,8 +68,8 @@ Our model achieves the following performance on :
 ### OV-LVIS
 | Model name    | mAP_rare     | Checkpoint |
 | ------------  | :------------: | ------------ |
-| OVDQUO_ViT-B/16 | __29.7__ |   |                |
-| OVDQUO_ViT-L/14 | __39.3__ |   |                 |
+| OVDQUO_ViT-B/16 | __29.7__ |   |              |
+| OVDQUO_ViT-L/14 | __39.3__ |   |              |
 ## Evaluation
 
 To evaluate my model on OV-COCO, run:
