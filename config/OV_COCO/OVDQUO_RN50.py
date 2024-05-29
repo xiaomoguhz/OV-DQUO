@@ -102,9 +102,9 @@ text_dim=1024  # 1024 for RN50
 backbone = "CLIP_RN50" 
 text_len = 15
 pretrained=""
-region_prompt_path = "/mnt/SSD8T/home/wjj/code/my_DINO/logs/region_prompt_R50.pth"
+region_prompt_path = "logs/region_prompt_R50.pth"
 backbone_out_indice=[1, 2, 3] # C3, C4, C5
-pseudo_box = "/mnt/SSD8T/home/wjj/code/OV-DINO-LVIS2/pseudo_json/converted/lvis_pseudo_5_0.5.json"
+pseudo_box = "lvis_pseudo_5_0.5.json"
 in_channel=[512, 1024, 2048]
 ##### end open-vocabulary training parameters ##### 
 
@@ -118,7 +118,7 @@ target_class_factor=3.0
 
 
 ##### start dataset parameters ##### 
-coco_path = "/mnt/SSD8T/home/wjj/dataset/coco2017/raw"
+coco_path = ""
 dataset_file = "ovcoco"
 label_version = "standard" 
 num_label_sampled=48 # keep compatible with ovlvis

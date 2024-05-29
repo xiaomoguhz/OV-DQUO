@@ -10,7 +10,7 @@ def get_args_parser():
     parser.add_argument('-f','--folder', required=True, type=str)
     parser.add_argument('-n', '--num_files', nargs='+', type=int, required=True)
     parser.add_argument('-m','--max_processes',default=3, type=int)
-    parser.add_argument('--lvis_path', default="/mnt/SSD8T/home/wjj/dataset/coco2017/raw", type=str)
+    parser.add_argument('--lvis_path', default="", type=str)
     parser.add_argument('--dataset_file', default="ov_lvis", type=str)
     parser.add_argument('--label_version', default="", type=str)
     parser.add_argument('--backbone', default="clip_R50x4", type=str)

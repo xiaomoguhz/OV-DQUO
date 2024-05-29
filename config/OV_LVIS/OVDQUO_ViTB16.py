@@ -100,12 +100,12 @@ label_version = "" # whether using relabeled annotations
 text_dim=512 # 512 for vit-b 16
 lr_backbone = 1e-4   # for transposed convolution in backbone 
 backbone = "EVA02-CLIP-B-16"  
-pretrained = "/mnt/SSD8T/home/wjj/code/OV-DINO-LVIS2/logs/eva_vitb16_lvis_clipself_patches.pt"
-text_embed="/mnt/SSD8T/home/wjj/code/OV-DINO-LVIS2/third_party/CLIPSelf/F-ViT/datasets/embeddings/lvis_with_background_evaclip_vitb_16.pt"
-all_classes="/mnt/SSD8T/home/wjj/code/OV-DINO-LVIS2/third_party/CLIPSelf/F-ViT/datasets/lvis_v1_all_classes.json"
+pretrained = ""
+text_embed=""
+all_classes=""
 backbone_out_indice=[5, 7, 11]
-pseudo_box = "/mnt/SSD8T/home/wjj/code/OV-DINO-LVIS2/pseudo_json/converted/lvis_pseudo_5_0.5.json"
-object_embbed="/mnt/SSD8T/home/wjj/code/OV-DINO-LVIS2/logs/vitb16_object_embbed.pt"
+pseudo_box = ""
+object_embbed=""
 resolution=[1024,1024]
 in_channel=[768, 768, 768]
 ##### end open-vocabulary training parameters ##### 
@@ -120,7 +120,7 @@ target_class_factor=3.0
 
 
 ##### start dataset parameters ##### 
-lvis_path="/mnt/SSD8T/home/wjj/dataset/coco2017/raw"
+lvis_path=""
 dataset_file = "ovlvis"
 repeat_factor_sampling=True
 repeat_threshold=0.001
