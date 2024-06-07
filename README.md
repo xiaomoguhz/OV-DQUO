@@ -97,14 +97,14 @@ python custom_tools/offline_lvis_eval.py -f logs/vitl_ovlvis -n 15 34 -c config/
 | OVDQUO_ViT-B/16_LVIS | __29.7__ | Please wait for further updates  |   
 | OVDQUO_ViT-L/14_LVIS | __39.3__ | Please wait for further updates |   
 ## Evaluation
-To evaluate our pretrained checkpoint on the OV-COCO dataset, please download the checkpoint from above links, and run:
+To evaluate our pretrained checkpoint on the OV-COCO dataset, please download the checkpoints from above links, place them in the `ckpt` folder, and run:
 ```
 # R50
 bash scripts\OV-COCO\diseval_RN50.sh logs/r50_ovcoco_eval
 # R50x4
 bash scripts\OV-COCO\diseval_RN50x4.sh logs/r50x4_ovcoco_eval
 ```
-To evaluate our pretrained checkpoint on the OV-LVIS dataset, please download the checkpoint from above links, and run:
+To evaluate our pretrained checkpoint on the OV-LVIS dataset, please download the checkpoint from above links, place them in the `ckpt` folder, and run:
 ```
 # vit-b
 bash scripts\OV-LVIS\diseval_ViTB16.sh logs/vitb_ovlvis_eval
