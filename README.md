@@ -4,7 +4,7 @@ This repository is the official PyTorch implementation of [OV-DQUO](https://arxi
 
 ![Alt text](docs/method.png)
 ## Overview
-OV-DQUO is an open-vocabulary detection framework that learns from open-world unknown objects through wildcard matching and contrastive denoising training strategies, mitigating performance degradation in novel category detection caused by confidence bias.
+OV-DQUO is an open-vocabulary detection framework that learns from open-world unknown objects through wildcard matching and contrastive denoising training methods, mitigating performance degradation in novel category detection caused by confidence bias.
 ## TODO
 - [x] Release the Model Code
 - [ ] Release the Training and Evaluation Code
