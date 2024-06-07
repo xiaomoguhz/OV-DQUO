@@ -1,4 +1,0 @@
-# ninja log v5
-0	5907	1716532345421347603	/mnt/SSD8T/home/wjj/code/OV-DQUO/models/ops/build/temp.linux-x86_64-cpython-39/mnt/SSD8T/home/wjj/code/OV-DQUO/models/ops/src/cpu/ms_deform_attn_cpu.o	d0eac17b77a2a350
-1	19767	1716532359289440886	/mnt/SSD8T/home/wjj/code/OV-DQUO/models/ops/build/temp.linux-x86_64-cpython-39/mnt/SSD8T/home/wjj/code/OV-DQUO/models/ops/src/vision.o	fc7893a7698428cb
-0	20569	1716532360081446213	/mnt/SSD8T/home/wjj/code/OV-DQUO/models/ops/build/temp.linux-x86_64-cpython-39/mnt/SSD8T/home/wjj/code/OV-DQUO/models/ops/src/cuda/ms_deform_attn_cuda.o	9716cd827e334f3f

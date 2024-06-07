@@ -9,9 +9,8 @@ master_port=29501
 
 python -m torch.distributed.launch --nproc_per_node=8 --master_addr=${master_addr} --master_port=${master_port} main.py \
         --output_dir $output_dir \
-        -c config/OV_COCO/OVDQUO_RN50x4.py \
-        --amp \
-        --eval_start_epoch 15 \
-        --options batch_size=3 # incase CUDA out of memory
-
+		-c config/OV_COCO/OVDQUO_RN50.py \
+		--amp \
+		--resume ckpt/OVDQUO_RN50_COCO.pth \
+		--eval
 

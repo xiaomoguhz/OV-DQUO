@@ -3,9 +3,6 @@ from scipy.optimize import linear_sum_assignment
 from torch import nn
 from util.box_ops import box_cxcywh_to_xyxy, generalized_box_iou, box_iou
 
-# 带有伪标注的匈牙利匹配
-# 伪标注用pseudo_mask进行了标注, 
-# 修改来源于class-aware，对伪标注IoU>0.5的box进行了query feature的替换，class变成48
 class OVHungarianMatcher(nn.Module):
     def __init__(
         self,

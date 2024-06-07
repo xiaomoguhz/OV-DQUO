@@ -3,21 +3,27 @@ import json
 import os
 import torch
 from lvis import LVISEval, LVISResults
-from datasets import build_dataset
 from multiprocessing import Pool
+import sys 
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, project_root)
+from datasets import build_dataset
+from util.slconfig import SLConfig, DictAction
+
 def get_args_parser():
     parser = argparse.ArgumentParser('', add_help=False)
+    parser.add_argument("--config_file", "-c", type=str, required=True)
     parser.add_argument('-f','--folder', required=True, type=str)
     parser.add_argument('-n', '--num_files', nargs='+', type=int, required=True)
-    parser.add_argument('-m','--max_processes',default=3, type=int)
-    parser.add_argument('--lvis_path', default="", type=str)
-    parser.add_argument('--dataset_file', default="ov_lvis", type=str)
-    parser.add_argument('--label_version', default="", type=str)
-    parser.add_argument('--backbone', default="clip_R50x4", type=str)
-    parser.add_argument('--debug', default=False, type=bool)
-    parser.add_argument('--repeat_threshold', default=0.001, type=int)
-    parser.add_argument('--class_group', default="", type=str)
-    parser.add_argument('--resolution', default=[896,896], type=str)
+    parser.add_argument('-m','--max_processes',default=5, type=int)
+    parser.add_argument(
+        "--options",
+        nargs="+",
+        action=DictAction,
+        help="override some settings in the used config, the key-value pair "
+        "in xxx=yyy format will be merged into config file.",
+    )
+    parser.add_argument("--debug", action="store_true")
     return parser
 
 def evaluate_epoch(epoch, args, dataset_val):
@@ -36,14 +42,23 @@ def evaluate_epoch(epoch, args, dataset_val):
     with open(os.path.join(cur_folder, "result.txt"), "a") as f:
         f.write(json.dumps(result) + "\n")
 
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser("lvis offline evaluation", parents=[get_args_parser()])
     args = parser.parse_args()
-    args.label_map = True
-    args.repeat_factor_sampling = True
+    cfg = SLConfig.fromfile(args.config_file)
+    if args.options is not None:
+        cfg.merge_from_dict(args.options)
+    cfg_dict = cfg._cfg_dict.to_dict()
+    args_vars = vars(args)
+    for k, v in cfg_dict.items():
+        if k not in args_vars:
+            setattr(args, k, v)
+        else:
+            raise ValueError("Key {} can used by args only".format(k))
     dataset_val = build_dataset(image_set="val", args=args)
-    print("dataset loaded...")
     max_processes=args.max_processes
+    print("dataset loaded...")
     print(f"max_processes is {max_processes}")
     print(f"evaluate epoch interval [{args.num_files[0]},{args.num_files[1]})")
     with Pool(processes=max_processes) as pool:

@@ -46,12 +46,12 @@ def Log_excel(log_stats, output_dir):
 
 if __name__ == "__main__":
     import json
-    out = "logs/OVDINO/lvis_exp1/log.txt"
+    out = ""
     with open(out, mode="r") as fp:
         for line in fp:
             try:
-                # 解析每行的 JSON 对象
+
                 res = json.loads(line)
                 Log_excel(res, os.path.dirname(out))
             except json.JSONDecodeError as e:
-                print(f"解析错误：{str(e)}")
+                print(f"json decode error:{str(e)}")

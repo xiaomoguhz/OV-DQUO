@@ -6,8 +6,7 @@ from util.misc import ( get_world_size,
                        is_dist_avail_and_initialized)
 import torch.nn.functional as F
 
-# 计算带有伪标注json训练数据的loss
-# 伪标注使用pseudo_mask进行了标注，不计算其bbox的loss
+
 class OVSetCriterion_Pseudo(OVSetCriterion):
     def __init__(self,**kwargs):
         super().__init__(**kwargs)

@@ -387,21 +387,33 @@ def sample_feature_vit(
 
 @torch.no_grad()
 def sample_feature_rn(
-        sizes,
-        pred_boxes,
-        features,
-        args,
-        backbone,
-        unflatten=True,
-    ):
-        rpn_boxes = [box_ops.box_cxcywh_to_xyxy(pred) for pred in pred_boxes]
-        for i in range(len(rpn_boxes)):
-            rpn_boxes[i][:, [0, 2]] = rpn_boxes[i][:, [0, 2]] * sizes[i][0]
-            rpn_boxes[i][:, [1, 3]] = rpn_boxes[i][:, [1, 3]] * sizes[i][1]
-        if "RN50x4" in args.backbone:
-            reso = 18
-        else: 
-            reso = 14
+    sizes,
+    pred_boxes,
+    features,
+    args,
+    backbone,
+    extra_conv=False,
+    unflatten=True,
+):
+    rpn_boxes = [box_ops.box_cxcywh_to_xyxy(pred) for pred in pred_boxes]
+    for i in range(len(rpn_boxes)):
+        rpn_boxes[i][:, [0, 2]] = rpn_boxes[i][:, [0, 2]] * sizes[i][0]
+        rpn_boxes[i][:, [1, 3]] = rpn_boxes[i][:, [1, 3]] * sizes[i][1]
+    if "RN50x4" in args.backbone:
+        reso = 18
+    else: 
+        reso = 14
+    if extra_conv:
+        roi_features = torchvision.ops.roi_align(
+            features,
+            rpn_boxes,
+            output_size=(reso, reso),
+            spatial_scale=1.0,
+            aligned=True,
+        )
+        roi_features = backbone[0].layer4(roi_features)
+        roi_features = backbone[0].attn_pool(roi_features, None)
+    else:
         features = features.permute(0, 2, 3, 1)
         attn_pool = backbone[0].attn_pool
         q_feat = attn_pool.q_proj(features)
@@ -472,10 +484,11 @@ def sample_feature_rn(
             need_weights=False,
         )[0][0]
         roi_features = roi_features.float()
-        roi_features = roi_features / roi_features.norm(dim=-1, keepdim=True)
-        if unflatten:
-            roi_features = roi_features.unflatten(0, (features.size(0), -1))
-        return roi_features
+    roi_features = roi_features / roi_features.norm(dim=-1, keepdim=True)
+    if unflatten:
+        roi_features = roi_features.unflatten(0, (features.size(0), -1))
+
+    return roi_features
 
 @torch.no_grad()
 def get_match_pseudo_idx(query,targets,thr=0.5):

@@ -95,17 +95,17 @@ lr_drop = 50
 batch_size = 4
 lr_backbone=0.0
 save_checkpoint_interval = 1
-num_feature_levels = 4 
+num_feature_levels = 3
 modelname = "ov_dquo"
 wildcard="object"
 text_dim=640  # 640 for RN50x4 
 backbone = "CLIP_RN50x4" 
 text_len = 15
 pretrained=""
-region_prompt_path = ""
+region_prompt_path = "pretrained/region_prompt_R50x4.pth"
 backbone_out_indice=[1, 2, 3] # C3, C4, C5 
-pseudo_box = ""
-in_channel=[640,1280,2560]
+pseudo_box = "ow_labels/OW_COCO_R2.json"
+in_channel=[640,1280]
 ##### end open-vocabulary training parameters ##### 
 
 
@@ -118,9 +118,10 @@ target_class_factor=3.0
 
 
 ##### start dataset parameters ##### 
-coco_path = ""
+coco_path = "data"
 dataset_file = "ovcoco"
 label_version = "standard" 
+repeat_factor_sampling=False
 num_label_sampled=48 # keep compatible with ovlvis
 ##### end dataset parameters ##### 
 

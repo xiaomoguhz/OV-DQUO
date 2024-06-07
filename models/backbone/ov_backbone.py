@@ -176,13 +176,17 @@ def build_backbone(args):
         raise ValueError(f"Unsupported backbone: {args.backbone}") 
     position_embedding = build_position_encoding(args)
     model = Joiner(backbone, position_embedding)
+    if "RN" in args.backbone:
+        model.num_backbone_outs = backbone.out_indices[:-1] 
+    else:
+        model.num_backbone_outs = backbone.out_indices
     return model
 
 
 class Joiner(nn.Sequential):
     def __init__(self, backbone, position_embedding):
         super().__init__(backbone, position_embedding)
-        self.num_backbone_outs=backbone.out_indices
+        # self.num_backbone_outs=backbone.out_indices
     def forward(self, tensor_list: NestedTensor):
         xs = self[0](tensor_list)
         pos = dict()

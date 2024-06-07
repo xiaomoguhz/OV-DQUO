@@ -193,15 +193,17 @@ class OV_DQUO(nn.Module):
                     text_feature=self.classifier[categories]
                     text_feature=torch.cat([text_feature,self.classifier[-1][None,:]]) # add wildcard embed
         else:
-            if self.args.pseudo_box != "":
-                text_feature=self.classifier[:-1] # remove pseudo embed
-
+            if "RN" in self.args.backbone:
+                text_feature=self.classifier(categories)
+            else:
+                assert self.args.pseudo_box != ""
+                text_feature=self.classifier[:-1] # remove wildcard embed during ovlvis inference
         ori_clip_features, ori_clip_pos_embeds = self.backbone(samples)
         clip_features = [
-            ori_clip_features[k] for k in ori_clip_features.keys() if k != "dense" # discard dense feature layer
+            ori_clip_features[k] for k in ori_clip_features.keys() if k != "dense" and k != "layer4"# discard dense feature layer
         ] 
         clip_pos_embeds = [
-            ori_clip_pos_embeds[k] for k in ori_clip_pos_embeds.keys() if k != "dense"  
+            ori_clip_pos_embeds[k] for k in ori_clip_pos_embeds.keys() if k != "dense" and k != "layer4"
         ]
         srcs = []
         masks = []
@@ -343,19 +345,19 @@ class OV_DQUO(nn.Module):
                 ]
         out["dn_meta"] = dn_meta
         if not self.training:
-            
             sample_box = outputs_coord_list[-1:]
             roi_feats = []
             for coord in sample_box:
                 if "RN" in self.args.backbone:
-                    src_feature = ori_clip_features["layer4"] # C5 in ResNet
+                    src_feature = ori_clip_features["layer3"] # C4 in ResNet
                     sizes = [((1 - m[0].float()).sum(), (1 - m[:, 0].float()).sum()) for m in src_feature.decompose()[1]]
                     roi_feats.append(sample_feature_rn(
                                             sizes,
                                            coord,
                                            src_feature.tensors,
                                            self.args,
-                                           self.backbone))
+                                           self.backbone,
+                                           extra_conv=True))
                 else:
                     src_feature = ori_clip_features["dense"] # dense feature for ViT
                     sizes = [((1 - m[0].float()).sum(), (1 - m[:, 0].float()).sum()) for m in src_feature.decompose()[1]]
@@ -369,7 +371,6 @@ class OV_DQUO(nn.Module):
             if self.args.analysis: #  for analysis
                 out["sim_mat"] = clip_outputs_class  
                 out["ori_pred_logits"] = outputs_class[-1]  
-            # iou_confidence = hack_replace(outputs_coord_list[-1], targets[0])[None, :, None]  #  hack replacement for testing oracle confidence
             clip_outputs_class = torch.cat(
                 [clip_outputs_class, torch.zeros_like(clip_outputs_class[:, :, :1])],
                 dim=-1,
@@ -377,9 +378,6 @@ class OV_DQUO(nn.Module):
             final_outputs_class = (clip_outputs_class * self.args.eval_tau).softmax(
                 dim=-1
             ) * (outputs_class[-1].sigmoid() ** self.args.objectness_alpha)
-            # final_outputs_class = (clip_outputs_class * self.args.eval_tau).softmax(
-            #     dim=-1
-            # ) * (iou_confidence**self.args.objectness_alpha) #  for hack repalce
             final_outputs_class = final_outputs_class[:, :, :-1]
             final_outputs_class = inverse_sigmoid(final_outputs_class)
             out["pred_logits"] = final_outputs_class
@@ -392,17 +390,6 @@ class OV_DQUO(nn.Module):
             {"pred_logits": a, "pred_boxes": b}
             for a, b in zip(outputs_class[:-1], outputs_coord[:-1])
         ]
-
-
-def hack_replace(predict_box, target):
-    # assume eval batch is 1
-    gt_boxes = target["boxes"]
-    gt_boxes = box_ops.box_cxcywh_to_xyxy(gt_boxes)
-    predict_box = box_ops.box_cxcywh_to_xyxy(predict_box)
-    iou_confidence = box_iou(predict_box.squeeze(0), gt_boxes)
-    iou_confidence, _ = iou_confidence.max(-1)
-    return iou_confidence
-
 
 @MODULE_BUILD_FUNCS.registe_with_name(module_name="ov_dquo")
 def build_ov_dquo(args):

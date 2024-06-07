@@ -9,7 +9,7 @@ class OVPostProcess(nn.Module):
 
     def __init__(self, args):
         super().__init__()
-        if args.dataset_file == "ov_lvis":
+        if args.dataset_file == "ovlvis":
             self.max_det = 300
         else:
             self.max_det = 100

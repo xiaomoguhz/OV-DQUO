@@ -181,7 +181,7 @@ def evaluate(
 ):
     model.eval()
     criterion.eval()
-    if epoch and utils.get_rank()==0 and not os.path.exists(os.path.join(output_dir,f"epoch_{epoch}")):
+    if args.dataset_file == "ovlvis" and epoch and utils.get_rank()==0 and not os.path.exists(os.path.join(output_dir,f"epoch_{epoch}")):
         os.mkdir(os.path.join(output_dir,f"epoch_{epoch}"))
     metric_logger = utils.MetricLogger(delimiter="  ")
     header = "Test:"

@@ -8,6 +8,8 @@ master_addr="127.0.0.1"
 master_port=29501
 
 python -m torch.distributed.launch --nproc_per_node=8 --master_addr=${master_addr} --master_port=${master_port} main.py \
-        --output_dir $output_dir -c config/OV_COCO/OVDQUO_RN50.py --amp \
-        --options batch_size 4
+        --output_dir $output_dir \
+        -c config/OV_COCO/OVDQUO_RN50.py \
+        --amp \
+        --eval_start_epoch 15 \
 

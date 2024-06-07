@@ -90,22 +90,21 @@ ema_epoch = 0
 
 ##### start open-vocabulary training parameters ##### 
 lr = 1e-4
-epochs = 30
+epochs = 35
 lr_drop = 50
 batch_size = 4
 save_checkpoint_interval = 1
-num_feature_levels = 4 
+num_feature_levels = 3
 modelname = "ov_dquo"
-label_version = "" # whether using relabeled annotations
 text_dim=512 # 512 for vit-b 16
 lr_backbone = 1e-4   # for transposed convolution in backbone 
 backbone = "EVA02-CLIP-B-16"  
-pretrained = ""
-text_embed=""
-all_classes=""
+pretrained = "pretrained/eva_vitb16_lvis_clipself_patches.pt"
+text_embed="pretrained/lvis_with_background_evaclip_vitb_16.pt"
+all_classes="pretrained/lvis_v1_all_classes.json"
 backbone_out_indice=[5, 7, 11]
-pseudo_box = ""
-object_embbed=""
+pseudo_box = "ow_labels/OW_LVIS_R3.json"
+object_embbed="pretrained/vitb16_object_embbed.pt"
 resolution=[1024,1024]
 in_channel=[768, 768, 768]
 ##### end open-vocabulary training parameters ##### 
@@ -120,7 +119,8 @@ target_class_factor=3.0
 
 
 ##### start dataset parameters ##### 
-lvis_path=""
+lvis_path="data"
+label_version = "" # whether using relabeled annotations
 dataset_file = "ovlvis"
 repeat_factor_sampling=True
 repeat_threshold=0.001
