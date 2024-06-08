@@ -114,7 +114,7 @@ in_channel=[1024, 1024, 1024]
 eval_tau = 100
 objectness_alpha = 1.0
 nms_iou_threshold = 0.5
-target_class_factor=3.0
+target_class_factor=8.0
 ##### end inference parameters ##### 
 
 

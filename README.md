@@ -63,8 +63,7 @@ To train the OV-DQUO on the OV-COCO dataset, please run the following script:
 ``` 
 # dist training based on RN50 backbone, 8 GPU
 bash scripts/OV-COCO/distrain_RN50.sh logs/r50_ovcoco
-```
-``` 
+
 # dist training based on RN50x4 backbone, 8 GPU
 bash scripts/OV-COCO/distrain_RN50x4.sh logs/r50x4_ovcoco
 ```
@@ -72,8 +71,6 @@ To train the OV-DQUO on the OV-LVIS dataset, please run the following script:
 ``` 
 # dist training based on ViT-B/16 backbone, 8 GPU
 bash scripts/OV-LVIS/distrain_ViTB16.sh logs/vitb_ovlvis
-```
-``` 
 # dist training based on ViT-L/14 backbone, 8 GPU
 bash scripts/OV-LVIS/distrain_ViTL14.sh logs/vitl_ovlvis
 ```
@@ -94,8 +91,8 @@ python custom_tools/offline_lvis_eval.py -f logs/vitl_ovlvis -n 15 34 -c config/
 ### OV-LVIS
 | Model name    | mAP_rare     | Checkpoint |
 | ------------  | :------------: | :------------: |
-| OVDQUO_ViT-B/16_LVIS | __29.7__ | Please wait for further updates  |   
-| OVDQUO_ViT-L/14_LVIS | __39.3__ | Please wait for further updates |   
+| OVDQUO_ViT-B/16_LVIS | __29.7__ | [model](https://drive.google.com/file/d/15bVUiHP14ChzLGzU3DA_4J7O1vaox51a/view?usp=sharing) |   
+| OVDQUO_ViT-L/14_LVIS | __39.3__ | [model](https://drive.google.com/file/d/1yQfWsoW9meZtKWhs2e9S9EPwi8lxqJei/view?usp=sharing) |   
 ## Evaluation
 To evaluate our pretrained checkpoint on the OV-COCO dataset, please download the checkpoints from above links, place them in the `ckpt` folder, and run:
 ```

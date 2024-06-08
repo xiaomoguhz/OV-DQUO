@@ -12,4 +12,4 @@ python -m torch.distributed.launch --nproc_per_node=8 --master_addr=$master_addr
         --output_dir $output_dir \
         --amp \
         --eval \
-        --resume \
+        --resume ckpt/OVDQUO_ViT-L/14_LVIS.pth \
